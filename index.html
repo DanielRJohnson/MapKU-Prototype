@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <script src="src/element.js"></script>
-    <div id="map"></div>
-    <script>
-        function initMap() {
-            let map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 38.957235, lng: -95.248962 },
-                zoom: 16,
-            });
-        }
-    </script>
-
     <script defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDToF-iEtrf7A3D6jwq31oriC75SOB-UjM&callback=initMap">
     </script>
+</head>
+<body>
+    <input type="text" id="DirectionsStart"></input>
+    <input type="text" id="Waypoints"></input>
+    <input type="text" id="DirectionsEnd"></input>
+    <button id="CalculateDirections">Directions</button>
+
+    <script src="src/element.js"></script>
+    <div id="map"></div>
+    <script src="src/map.js"></script>
 </body>
 </html>
