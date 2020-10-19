@@ -1,9 +1,36 @@
 #map {
-    height: 90%;
-    width: 90%;
+    height: 100%;
+    width: 80%;
+    position: relative;
+    z-index: 1;
 }
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+#Sidebar {
+    float: right;
+    background-color: #003459;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    color: white;
+    padding: 20px;
+    overflow-x: hidden;
+}
+#Search {
+    position: absolute;
+    padding-top: 13px;
+    left: 220px;
+    z-index: 2;
+}
+h1{
+    text-align: center;
+    padding-bottom: 10px;
+}
+#directionInfo{
+    padding-bottom: 10px;
 }

@@ -13,6 +13,12 @@ class Route{
             this.wayps.push( {location: this.routeList[i], stopover: true} );
         }
         this.destination = this.routeList[this.routeList.length - 1];
+
+        let rtlist = document.getElementById("routeList");
+        let li = document.createElement("li");
+        li.setAttribute('id', place);
+        li.appendChild(document.createTextNode(place));
+        rtlist.appendChild(li);
     }
     isInRoute = (place) => {
         let found = false;

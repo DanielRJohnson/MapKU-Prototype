@@ -5,20 +5,21 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 38.957235, lng: -95.248962 },
         zoom: 16,
+        disableDefaultUI: true,
     });
     
     directionsRenderer.setMap(map); 
     const calculateDirections = function (route){
         mapRoute(directionsService, directionsRenderer, route);
     }
-
     let myRoute = new Route();
     document.getElementById("addToRoute").addEventListener("click", () => {
         myRoute.addToRoute(document.getElementById("searchBox").value);
-        calculateDirections(myRoute); 
         //console.log(myRoute);
     });
-
+    document.getElementById("calculateRoute").addEventListener("click", () => {
+        calculateDirections(myRoute);
+    })
     let addMarker = (latLng, title) => {
         let marker = new google.maps.Marker({
             position: {lat: latLng.lat, lng: latLng.lng},
@@ -45,7 +46,6 @@ function initMap() {
 
         marker.addListener("dblclick", () => {
             myRoute.addToRoute(title);
-            calculateDirections(myRoute);
             infowindow.close();
         })
     }
@@ -56,8 +56,6 @@ function initMap() {
         console.log(mouseEvent.latLng.lat(), mouseEvent.latLng.lng());
     });
 }
-
-
 
 function mapRoute(directionsService, directionsRenderer, route){
     directionsService.route(
@@ -74,10 +72,14 @@ function mapRoute(directionsService, directionsRenderer, route){
         (response, status) => {
             if (status === "OK"){
                 //console.log(response);
-                console.log("Distance: ", response.routes[0].legs[0].distance.text);
-                console.log("Duration: ", response.routes[0].legs[0].duration.text);
+                document.getElementById("directionInfo").innerHTML = 
+                    "Distance: " + response.routes[0].legs[0].distance.text  + "<br>" + 
+                    "Duration: " + response.routes[0].legs[0].duration.text  + "<br>";
+                //console.log("Distance: ", response.routes[0].legs[0].distance.text);
+                //console.log("Duration: ", response.routes[0].legs[0].duration.text);
                 for (let i = 0; i < response.routes[0].legs[0].steps.length; i++){
-                    console.log(response.routes[0].legs[0].steps[i].instructions, "in", response.routes[0].legs[0].steps[i].distance.text);
+                    document.getElementById("directionInfo").innerHTML += response.routes[0].legs[0].steps[i].instructions + " in " + response.routes[0].legs[0].steps[i].distance.text + "<br>";
+                   // console.log(response.routes[0].legs[0].steps[i].instructions, "in", response.routes[0].legs[0].steps[i].distance.text);
                 }
                 directionsRenderer.setDirections(response);
                 console.log("Successfully routed from", route.origin, "to", route.destination);
