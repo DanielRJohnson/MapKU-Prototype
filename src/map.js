@@ -1,31 +1,74 @@
 function initMap() {
+    const snowHall = {lat: 38.9586897463383, lng: -95.24913753763796};
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 38.957235, lng: -95.248962 },
         zoom: 16,
     });
+    
     directionsRenderer.setMap(map); 
-    const calculateDirections = function (){
-        mapRoute(directionsService, directionsRenderer);
+    const calculateDirections = function (route){
+        mapRoute(directionsService, directionsRenderer, route);
     }
-    document.getElementById("CalculateDirections").addEventListener("click", calculateDirections);
+
+    let myRoute = new Route();
+    document.getElementById("addToRoute").addEventListener("click", () => {
+        myRoute.addToRoute(document.getElementById("searchBox").value);
+        calculateDirections(myRoute); 
+        //console.log(myRoute);
+    });
+
+    let addMarker = (latLng, title) => {
+        let marker = new google.maps.Marker({
+            position: {lat: latLng.lat, lng: latLng.lng},
+            map,
+            title: title
+        });
+        marker.setOpacity(.4);
+        marker.addListener('mouseover', function() {
+            marker.setOpacity(1);
+        });
+        marker.addListener('mouseout', function() {
+            if (!myRoute.isInRoute(title)){
+                marker.setOpacity(0.4);
+            }
+        });
+    
+        const infowindow = new google.maps.InfoWindow({
+            content: title
+        });
+        
+        marker.addListener("click", () => {
+            infowindow.open(map, marker);
+        });
+
+        marker.addListener("dblclick", () => {
+            myRoute.addToRoute(title);
+            calculateDirections(myRoute);
+            infowindow.close();
+        })
+    }
+
+    addMarker(snowHall, "Snow Hall");
+
+    map.addListener("click" , (mouseEvent) => {
+        console.log(mouseEvent.latLng.lat(), mouseEvent.latLng.lng());
+    });
 }
 
-function mapRoute(directionsService, directionsRenderer){
 
-    const wayps = [];
-    wayps.push({location: document.getElementById("Waypoints").value + ", lawrence", stopover: true}); 
 
+function mapRoute(directionsService, directionsRenderer, route){
     directionsService.route(
         {
             origin: {
-                query: document.getElementById("DirectionsStart").value + ", lawrence", //This could cause some issues in the future
+                query: route.origin,
             },
             destination: {
-                query: document.getElementById("DirectionsEnd").value + ", lawrence", //This could cause some issues in the future
+                query: route.destination,
             },
-            waypoints: wayps, 
+            waypoints: route.wayps,
             travelMode: google.maps.TravelMode.WALKING,
         },
         (response, status) => {
@@ -36,12 +79,11 @@ function mapRoute(directionsService, directionsRenderer){
                 for (let i = 0; i < response.routes[0].legs[0].steps.length; i++){
                     console.log(response.routes[0].legs[0].steps[i].instructions, "in", response.routes[0].legs[0].steps[i].distance.text);
                 }
-                //console.log("Steps: ", response.routes[0].legs[0].steps);
                 directionsRenderer.setDirections(response);
-                console.log("Got to the good outcome from", document.getElementById("DirectionsStart").value, "to", document.getElementById("DirectionsEnd").value);
+                console.log("Successfully routed from", route.origin, "to", route.destination);
             }
             else{
-                console.log("Directions fucked up by: " + status);
+                console.log("Directions error: " + status);
             }
         }
     );
