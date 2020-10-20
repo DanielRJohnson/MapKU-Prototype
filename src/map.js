@@ -18,7 +18,15 @@ function initMap() {
         //console.log(myRoute);
     });
     document.getElementById("calculateRoute").addEventListener("click", () => {
-        calculateDirections(myRoute);
+        if (myRoute.isValidRoute()) calculateDirections(myRoute);
+        else alert("Route must have at least two points");
+        document.getElementById("searchBox").value = "";
+    })
+    document.getElementById("clearRoute").addEventListener("click", () => {
+        location.reload();
+        /*myRoute.clearRoute();
+        directionsRenderer.setMap(null);
+        document.getElementById("searchBox").value = "";*/
     })
     let addMarker = (latLng, title) => {
         let marker = new google.maps.Marker({
@@ -71,15 +79,19 @@ function mapRoute(directionsService, directionsRenderer, route){
         },
         (response, status) => {
             if (status === "OK"){
-                //console.log(response);
-                document.getElementById("directionInfo").innerHTML = 
-                    "Distance: " + response.routes[0].legs[0].distance.text  + "<br>" + 
-                    "Duration: " + response.routes[0].legs[0].duration.text  + "<br>";
-                //console.log("Distance: ", response.routes[0].legs[0].distance.text);
-                //console.log("Duration: ", response.routes[0].legs[0].duration.text);
-                for (let i = 0; i < response.routes[0].legs[0].steps.length; i++){
-                    document.getElementById("directionInfo").innerHTML += response.routes[0].legs[0].steps[i].instructions + " in " + response.routes[0].legs[0].steps[i].distance.text + "<br>";
-                   // console.log(response.routes[0].legs[0].steps[i].instructions, "in", response.routes[0].legs[0].steps[i].distance.text);
+                console.log(response);
+                let distance = 0, duration = 0;
+                let dirtext = document.getElementById("directionInfo");
+                dirtext.innerHTML = "";
+                for (let i = 0; i < response.routes[0].legs.length; i++){
+                    dirtext.innerHTML += "<u><b>Point " + (i+1) + " to point " + (i+2) + ":</b></u></br>" +
+                    "Distance: " + response.routes[0].legs[i].distance.text  + "</br>" + 
+                    "Duration: " + response.routes[0].legs[i].duration.text  + "</br>";
+                    distance += parseInt(response.routes[0].legs[i].distance.text);
+                    duration += parseInt(response.routes[0].legs[i].duration.text);
+                    for (let j = 0; j < response.routes[0].legs[i].steps.length; j++){
+                        dirtext.innerHTML += response.routes[0].legs[i].steps[j].instructions + " in " + response.routes[0].legs[i].steps[j].distance.text + "<br>";
+                    }
                 }
                 directionsRenderer.setDirections(response);
                 console.log("Successfully routed from", route.origin, "to", route.destination);

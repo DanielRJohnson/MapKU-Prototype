@@ -6,7 +6,7 @@ class Route{
         this.routeList = [];
     }
     addToRoute = (place) => {
-        this.routeList.push(place + ", Lawrence");
+        this.routeList.push(place + ", Lawrence Kansas");
         this.origin = this.routeList[0];
         this.wayps = [];
         for (let i = 1; i < this.routeList.length - 1; i++){
@@ -28,5 +28,19 @@ class Route{
             }
         }
         return found;
+    }
+    isValidRoute = () => {
+        if (origin !== undefined && this.destination !== undefined && this.routeList.length > 1){
+            return true;
+        }
+        return false;
+    }
+    clearRoute = () => {
+        this.routeList = [];
+        this.origin = undefined;
+        this.destination = undefined;
+        this.wayps = [];
+        document.getElementById("routeList").innerHTML = "<u>Route:</u>";
+        document.getElementById("directionInfo").innerHTML = "Double click on building markers or search for a building to form a route.";
     }
 }
