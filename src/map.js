@@ -98,6 +98,7 @@ function mapRoute(directionsService, directionsRenderer, route){
             }
             else{
                 console.log("Directions error: " + status);
+                alert("There was an error processing the directions.");
             }
         }
     );
