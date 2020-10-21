@@ -9,6 +9,16 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+.Jayhawk{
+    position: absolute;
+    float:left;
+    width:0%;
+    left:10px;
+    top:10px;
+    z-index: 2;
+}
+
 #Sidebar {
     float: right;
     background-color: #003459;
@@ -21,16 +31,30 @@ html, body {
     padding: 20px;
     overflow-x: hidden;
 }
+
 #Search {
     position: absolute;
     padding-top: 13px;
     left: 220px;
     z-index: 2;
 }
+
 h1{
     text-align: center;
     padding-bottom: 10px;
 }
+
 #directionInfo{
     padding-bottom: 10px;
+}
+
+.h2Text{
+position: absolute;
+left:90px;
+top:15px;
+color: rgb(2, 133, 255);
+z-index: 2;
+padding: 0; 
+float:right;
+width:400px;
 }
