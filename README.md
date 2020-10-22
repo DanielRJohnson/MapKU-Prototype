@@ -10,7 +10,7 @@ Group Project No.3 for EECS 448
 - [x] Users can view information about the route. (estimated time, distance, etc.)</br>
 - [x] Users can view information about buildings
 ## To be Determined:
-- [ ] Be able to input class (somehow) and route to the building
+- [ ] Be able to input class
 - [ ] Add Campus Bike Share information
 - [ ] Add Campus Bus information
 
