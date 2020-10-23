@@ -17,7 +17,10 @@ Group Project No.3 for EECS 448
 ## Links:
   - [Work Hours-Sheet](https://docs.google.com/spreadsheets/d/10vYHJi0r3QG4YEa_zGyJaf-fYmN1XxHtPdT_CvGnllA/edit#gid=0)
 ## To run:
-  - Open the index.html file
+  - Open GitHub Pages link in the "about" section
+  - NOTE: After 2020, I will be removing my API key from this project.
+     To run this after that, download the project, and in the index.html
+     put your own API key in where the map loads. Then open index.html.
 ## Sources:
 - Maps JavaScript API V3 Reference: [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/reference/map)
 - Directions API: [Google Directions API](https://developers.google.com/maps/documentation/directions/overview)
