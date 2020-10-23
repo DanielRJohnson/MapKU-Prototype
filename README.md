@@ -19,5 +19,7 @@ Group Project No.3 for EECS 448
 ## To run:
   - Open the index.html file
 ## Sources:
-- JavaScript API V3 Reference: [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/reference/map)
+- Maps JavaScript API V3 Reference: [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/reference/map)
+- Directions API: [Google Directions API](https://developers.google.com/maps/documentation/directions/overview)
+- Button Styling: [Bootstrap](https://getbootstrap.com/)
 - Repository: [GitHub](https://github.com/DanielRJohnson/MapKU)
