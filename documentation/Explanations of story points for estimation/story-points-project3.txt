@@ -1,0 +1,20 @@
+Story points project 3: Build a prototype of an application of your team’s choosing
+
+Points: 5
+
+. View Map
+ - use Google Maps api to show the user a map centered at KU campus
+
+. View buildings
+ - user is able to click on buildings to get their maps and other info.
+
+. Map route
+ - user selects multiple points to plot their trip
+
+. Get route info: directions, ETA, etc.
+ - user gets feedback about the route
+
+. Keep implementation modular
+ - this project needs to be modular enough to add on more features for project 4.
+
+More story points to be added in project 4.
